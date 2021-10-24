@@ -7,7 +7,7 @@ BEGIN
     (SELECT COUNT(teamID) 
       FROM Employees 
       WHERE (teamID = NEW.teamID AND employeeType = 1)
-      GROUP BY teamID) >= 15
+      GROUP BY teamID) > 16
       THEN RAISE(ABORT, "Can't have more than 15 players on a team")
     END;
 END
@@ -20,33 +20,33 @@ BEGIN
     (SELECT COUNT(teamID) 
       FROM Employees 
       WHERE (teamID = NEW.teamID AND New.employeeType = 1)
-      GROUP BY teamID) >= 15
+      GROUP BY teamID) > 16
       THEN RAISE(ABORT, "Can't have more than 15 players on a team")
     END;
 END
 
 -- Creates a Constraint that prevents a user from adding more than 1 coach to a team.
 CREATE TRIGGER CoachToTeamConstraint
-BEFORE INSERT ON Employees
+AFTER INSERT ON Employees
 BEGIN
   SELECT CASE WHEN 
     (SELECT COUNT(teamID) 
       FROM Employees 
       WHERE teamID = (NEW.teamID AND New.employeeType = 2)
-      GROUP BY teamID) >= 1
+      GROUP BY teamID) > 1 -- B/c we check before update
       THEN RAISE(ABORT, "Can't have more than 1 head coach")
     END;
 END
 
 -- Prevents user from updating a coach employee if it will make more than one coach on a team.
 CREATE TRIGGER CoachToTeamConstraintUpdate
-BEFORE UPDATE of teamID ON Employees
+AFTER UPDATE of teamID ON Employees
 BEGIN
   SELECT CASE WHEN 
     (SELECT COUNT(teamID) 
     FROM Employees 
     WHERE (teamID = NEW.teamID AND NEW.employeeType = 2)
-    GROUP BY teamID) >= 1
+    GROUP BY teamID) > 1 -- B/c we check before update
       THEN RAISE(ABORT, "Can't have more than 1 head coach")
   END;
 END
@@ -153,3 +153,30 @@ BEGIN
       END
   FROM Games;
 END
+
+-- Updates a teamID of player when they are traded.
+-- All previous constraints will prevent the trade if there is more than 15 players on a team.
+CREATE TRIGGER TradeUpdatePlayer
+  AFTER INSERT ON Trades
+  BEGIN
+    UPDATE Employees
+      SET teamID = NEW.teamTo
+      WHERE employeeID = NEW.employeeID;
+  END
+
+CREATE TRIGGER teamFROMConstraint
+  BEFORE INSERT ON Trades
+  WHEN 
+
+-- Prevents a user from selecting the wrong fromTeam (must must match current players team)
+CREATE TRIGGER teamFROMConstraint
+ BEFORE INSERT ON Trades
+BEGIN
+  SELECT CASE
+    WHEN (SELECT teamID FROM Employees WHERE employeeID = NEW.employeeID) != NEW.teamFrom
+    THEN RAISE (ABORT, "Select correct teamFrom for Player")
+  END
+  FROM Employees;
+END
+
+  
