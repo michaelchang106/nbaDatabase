@@ -1,4 +1,4 @@
--- GRAB FULL DETAILS OF PLAYERS NAMED "JAYLEN"
+-- GRAB FULL DETAILS OF PLAYERS LAST NAME LIKE "%SON%"
 
 WITH playersByPosition AS (
 SELECT *
@@ -28,7 +28,10 @@ SELECT
 	Teams.name
 FROM playersFullDetails_w_Pos_Desc AS P
 JOIN Teams ON Teams.teamID = P.teamID
-WHERE firstName = "Jaylen"
+WHERE lastName LIKE "%SON%"
+GROUP BY 1
+ORDER BY 1
+
 
 
 
