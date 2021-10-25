@@ -15,8 +15,19 @@ SELECT *
 FROM playersFullDetails
 JOIN Positions ON Positions.positionID = playersFullDetails.positionID)
 
-SELECT *
-FROM playersFullDetails_w_Pos_Desc
+SELECT 
+	P.playerID,
+	P.firstName,
+	P.lastName,
+	P.birthDate,
+	P.height,
+	P.weight,
+	P.jerseyNum,
+	P.positionDesc,
+	Teams.abbreviation,
+	Teams.name
+FROM playersFullDetails_w_Pos_Desc AS P
+JOIN Teams ON Teams.teamID = P.teamID
 WHERE firstName = "Jaylen"
 
 
