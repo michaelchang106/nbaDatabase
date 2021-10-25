@@ -1,3 +1,5 @@
+-- GRAB FULL DETAILS OF PLAYERS NAMED "JAYLEN"
+
 WITH playersByPosition AS (
 SELECT *
 FROM Players
