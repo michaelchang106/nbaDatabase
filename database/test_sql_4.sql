@@ -5,4 +5,4 @@ FROM Employees
 JOIN Teams ON Teams.teamID = Employees.teamID
 WHERE employeeType = 1
 GROUP BY Teams.name
-HAVING totalPlayersOnTeam < 12
+HAVING totalPlayersOnTeam <= 13
