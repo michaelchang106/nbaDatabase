@@ -1,19 +1,12 @@
 -- GRAB FULL DETAILS OF PLAYERS LAST NAME LIKE "%SON%"
 
-WITH playersByPosition AS (
+WITH playersFullDetails AS (
 SELECT *
 FROM Players
-JOIN Players_Positions ON Players.playerID = Players_Positions.playerID),
+JOIN Players_Positions ON Players.playerID = Players_Positions.playerID
+JOIN Employees ON Employees.employeeID = Players.employeeID
+JOIN Positions ON Positions.positionID = Players_Positions.positionID)
 
-playersFullDetails AS (
-SELECT *
-FROM playersByPosition
-JOIN Employees ON playersByPosition.employeeID = Employees.employeeID),
-
-playersFullDetails_w_Pos_Desc AS (
-SELECT *
-FROM playersFullDetails
-JOIN Positions ON Positions.positionID = playersFullDetails.positionID)
 
 SELECT 
 	P.playerID,
@@ -26,7 +19,7 @@ SELECT
 	P.positionDesc,
 	Teams.abbreviation,
 	Teams.name
-FROM playersFullDetails_w_Pos_Desc AS P
+FROM playersFullDetails AS P
 JOIN Teams ON Teams.teamID = P.teamID
 WHERE lastName LIKE "%SON%"
 GROUP BY 1
