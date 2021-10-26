@@ -21,7 +21,7 @@ NBA database for DBMS Project 1 - CS 5200
 The BCNF proof is in the [Business Requirements Document](./models_and_bus_reqs/Business_Requirements_Document.pdf)
 In the SCHEMA is BCNF section
 
-[Business Requirements Document Google Docs]https://docs.google.com/document/d/13wTtEmC-XXSWzubHSJDg0rDB8sXb62t-KJJM-X4vpMg/edit?usp=sharing
+[Business Requirements Document Google Docs](https://docs.google.com/document/d/13wTtEmC-XXSWzubHSJDg0rDB8sXb62t-KJJM-X4vpMg/edit?usp=sharing)
 In the SCHEMA is BCNF section
 
 ## SQL File w/ Table Definitions/Creation (DDL)
@@ -29,7 +29,7 @@ In the SCHEMA is BCNF section
 SQL creation scripts to be ran in SQLite3
 
 ## Data used to populate the Tables (DML through DB Browser Import CSV)
-![NBA Data found from internet as CSV files](./data)
+![Directory NBA Data found from internet as CSV files](./data)
 
 ## SQL queries used to query information from our database with test data (DML)
 [Various SQL query demonstrations](./database/sql_queries.sql):
@@ -40,4 +40,4 @@ SQL creation scripts to be ran in SQLite3
 
 ## Screenshots showing functionality of constraints
 [Screenshots pasted into xlsx file](./database/Constraint_Screen_Shots.xlsx)
-[Screenshots pasted into Google Sheets]https://docs.google.com/spreadsheets/d/1euBu5pVi-Z4aii9Y-7CNDByd4slmUOYCvw8Q6XpOylI/edit?usp=sharing
+[Screenshots pasted into Google Sheets](https://docs.google.com/spreadsheets/d/1euBu5pVi-Z4aii9Y-7CNDByd4slmUOYCvw8Q6XpOylI/edit?usp=sharing)
