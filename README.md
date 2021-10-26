@@ -40,4 +40,5 @@ SQL creation scripts to be ran in SQLite3
 
 ## Screenshots showing functionality of constraints
 [Screenshots pasted into xlsx file](./database/Constraint_Screen_Shots.xlsx)
+
 [Screenshots pasted into Google Sheets](https://docs.google.com/spreadsheets/d/1euBu5pVi-Z4aii9Y-7CNDByd4slmUOYCvw8Q6XpOylI/edit?usp=sharing)
