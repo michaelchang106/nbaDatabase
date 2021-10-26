@@ -18,7 +18,7 @@ NBA database for DBMS Project 1 - CS 5200
 [Logical Model Lucid Chart](https://lucid.app/lucidchart/f8b731fe-7480-4e96-b786-84ca747ef028/edit?viewport_loc=-303%2C16%2C2219%2C1012%2C0_0&invitationId=inv_b1efe1a2-5c17-497c-80c0-568e9ae0d801)
 
 ## Relational Schema with BCNF Proof
-The BCNF proof is in the [Business Requirements Document](./models_and_bus_reqs/Business_Requirements_and_Models_and_BCNF.pdf.pdf)
+The BCNF proof is in the [Business Requirements Document](./models_and_bus_reqs/Business_Requirements_and_Models_and_BCNF.pdf)
 In the SCHEMA is BCNF section
 
 [Business Requirements Document Google Docs](https://docs.google.com/document/d/13wTtEmC-XXSWzubHSJDg0rDB8sXb62t-KJJM-X4vpMg/edit?usp=sharing)
