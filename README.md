@@ -3,7 +3,7 @@ NBA database for DBMS Project 1 - CS 5200
 
 
 ## Business Requirements and Logical/Conceptual Models
-[Business Requirements](./models_and_bus_reqs/Business_Requirements_Document.pdf)
+[Business Requirements PDF](./models_and_bus_reqs/Business_Requirements_Document.pdf)
 
 [Business Requirements in Google Docs](https://docs.google.com/document/d/13wTtEmC-XXSWzubHSJDg0rDB8sXb62t-KJJM-X4vpMg/edit?usp=sharing)
 
