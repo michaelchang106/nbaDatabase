@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+      integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/">Go to homepage</a>
+      <form action="/submitEdit" method="POST">
+        <input type="hidden" name="team" value="<%=player.team%>" />
+        <input type="hidden" name="employeeID" value="<%=player.employeeID%>" />
+        <div>
+          <label class="form-label"
+            >First Name:
+            <input
+              required="true"
+              name="firstName"
+              type="text"
+              class="form-control"
+              value="<%=player.firstName%>"
+          /></label>
+        </div>
+        <div>
+          <label class="form-label"
+            >Last Name:
+            <input
+              required="true"
+              name="lastName"
+              type="text"
+              class="form-control"
+              value="<%=player.lastName%>e"
+          /></label>
+        </div>
+        <div>
+          <label class="form-label"
+            >Jersey Number:
+            <input
+              required="true"
+              name="jerseyNum"
+              type="text"
+              class="form-control"
+              value="<%=player.jerseyNum%>"
+          /></label>
+        </div>
+        <div>
+          <label class="form-label"
+            >Weight:
+            <input
+              required="true"
+              name="weight"
+              type="text"
+              class="form-control"
+              value="<%=player.weight%>"
+          /></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Edit</button>
+      </form>
+    </div>
+  </body>
+</html>
