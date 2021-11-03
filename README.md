@@ -67,4 +67,4 @@ SQL creation scripts to be ran in SQLite3
 - type "npm install" and hit enter
 - type "npm start" and hit enter
 - navigate to "http://localhost:3000/" in your preferred browser
-- use our developed interface to perform CRUD operations on the Employees -> Players & Coaches, Games, and Trades Tables
+- use our developed interface to perform CRUD operations on the Employees -> Players & Coaches, and Games Tables
