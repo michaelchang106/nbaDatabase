@@ -58,7 +58,7 @@ SQL creation scripts to be ran in SQLite3
 
 ### [Michael Chang](https://github.com/michaelchang106) created the CRUD Operations and interface for Games table
 
-### [Daniel Lisko](https://github.com/djlisko01) created the CRUD Operations and interface for Employees -> Players table (and inherently Employees)
+### [Daniel Lisko](https://github.com/djlisko01) created the CRUD Operations and interface for Players table (and inherently Employees)
 
 ## Execution of project
 
