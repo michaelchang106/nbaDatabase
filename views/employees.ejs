@@ -8,6 +8,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="#" />
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
@@ -16,29 +17,28 @@
     ></script>
   </head>
   <body>
-
     <div class="container">
-  <form action="/>" method="POST">
-    <div class="dropdown">
-      <button
-        class="btn btn-secondary dropdown-toggle"
-        type="submit"
-        id="dropdownMenuButton1"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        Select a Team
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <% teams.forEach(function (f) { %>
-        <a class="dropdown-item" href="/team/<%= f.name %>"
-          ><%= f.abbreviation %> - <%= f.name %></a
-        >
-        <% })%>
-      </ul>
+      <form action="/employees/team>" method="POST">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="submit"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Select a Team
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <% teams.forEach(function (f) { %>
+            <a class="dropdown-item" href="employees/team/<%= f.name %>"
+              ><%= f.abbreviation %> - <%= f.name %></a
+            >
+            <% })%>
+          </ul>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
 
     <!-- Drop down to select a team -->
   </body>

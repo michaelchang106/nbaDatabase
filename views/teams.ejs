@@ -50,7 +50,7 @@
                 <!-- To delete a Player -->
                 <div class="row">
                   <div class="d-flex justify-content-end col-6">
-                    <form action="/deleteEmployee" method="POST">
+                    <form action="/employees/deleteEmployee" method="POST">
                       <input
                         type="hidden"
                         name="employeeID"
@@ -70,7 +70,7 @@
 
                   <!-- Edit Player -->
                   <div class="d-flex justify-content-start col-6">
-                    <form action="/edit" method="POST">
+                    <form action="/employees/edit" method="POST">
                       <input type="hidden" name="team" value="<%= team%>" />
                       <input
                         type="hidden"
@@ -121,7 +121,7 @@
                   <h4>Coach</h4>
                 </div>
                 <!--Edit-->
-                <div class="row">
+                <!--                 <div class="row">
                   <div class="d-flex justify-content-end col-6">
                     <a href="/deleteEmployee" class="btn btn-primary"
                       >Delete Coach</a
@@ -132,7 +132,7 @@
                       >Edit Coach</a
                     >
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@
         <!-- Creating a Player -->
         <div class="col-md-3">
           <h5>Add a New Player to the <%= team %></h5>
-          <form action="/player/create" method="POST">
+          <form action="/employees/player/create" method="POST">
             <input type="hidden" name="team" value="<%=team%>" />
             <!-- Use this to get teamID-->
             <div>

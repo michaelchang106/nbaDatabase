@@ -9,8 +9,8 @@ async function connect() {
 }
 
 async function getGames() {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB to Get Games");
     return await db.all(`
       WITH gamesWithAwayTeamsNames AS (
@@ -23,12 +23,15 @@ async function getGames() {
       JOIN Teams ON Teams.teamID = gamesWithAwayTeamsNames.homeTeam;`);
   } catch (error) {
     console.log(error);
+    throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function getSingleGame(gameID) {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB to get a Single Game");
     return await db.get(`
       WITH gameWithAwayTeamName AS (
@@ -43,23 +46,29 @@ async function getSingleGame(gameID) {
       WHERE gameWithAwayTeamName.gameID = ${gameID};`);
   } catch (error) {
     console.log(error);
+    throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function getTeams() {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB to get Teams");
     return await db.all(`
       SELECT * FROM Teams;`);
   } catch (error) {
     console.log(error);
+    throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function filterGamesByTeam(query) {
+  const db = await connect();
   try {
-    const db = await connect();
     console.log("Connected to nbaDB to Get Filtered Games By Team Only");
     return await db.all(`
       WITH gamesWithAwayTeamsNames  AS (
@@ -73,46 +82,65 @@ async function filterGamesByTeam(query) {
       WHERE gamesWithAwayTeamsNames.homeTeam = ${query.teamID} OR gamesWithAwayTeamsNames.awayTeam = ${query.teamID};`);
   } catch (error) {
     console.log(error);
+    throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function filterGamesByDate(query) {
+  const db = await connect();
+  console.log(query.date, typeof query.date, query.date.length);
   try {
-    const db = await connect();
     console.log("Connected to nbaDB to Get Filtered Games By Date Only");
     return await db.all(`
       WITH gamesWithAwayTeamsNames AS (
       SELECT gameID, homeTeam, awayTeam, name AS awayName, abbreviation AS awayAbbreviation, winTeam, loseTeam, date
       FROM Games
       JOIN Teams ON Teams.teamID = awayTeam
-      WHERE Games.date = ${query.date})
+      WHERE Games.date = "${query.date}")
     
       SELECT gameID, homeTeam, awayTeam, awayName, name AS homeName, awayAbbreviation, abbreviation AS homeAbbreviation, winTeam, loseTeam, date
       FROM gamesWithAwayTeamsNames
       JOIN Teams ON Teams.teamID = gamesWithAwayTeamsNames.homeTeam
-      WHERE gamesWithAwayTeamsNames.date = ${query.date};`);
+      WHERE gamesWithAwayTeamsNames.date = "${query.date}";`);
   } catch (error) {
     console.log(error);
+    throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function filterGamesByTeamAndDate(query) {
+  const db = await connect();
   try {
-    const db = await connect();
     console.log("Connected to nbaDB to Get Filtered Games By Team AND DATE");
     return await db.all(`
-      SELECT * 
-      FROM Teams
-      JOIN Games ON Games.homeTeam = Teams.teamID OR Games.awayTeam = Teams.teamID
-      WHERE Teams.teamID = ${query.teamID} AND Games.date = ${query.date};`);
+      WITH gamesWithAwayTeamsNames AS (
+      SELECT gameID, homeTeam, awayTeam, name AS awayName, abbreviation AS awayAbbreviation, winTeam, loseTeam, date
+      FROM Games
+      JOIN Teams ON Teams.teamID = awayTeam
+      WHERE Games.date = "${query.date}")
+    
+      SELECT gameID, homeTeam, awayTeam, awayName, name AS homeName, awayAbbreviation, abbreviation AS homeAbbreviation, winTeam, loseTeam, date
+      FROM gamesWithAwayTeamsNames
+      JOIN Teams ON Teams.teamID = gamesWithAwayTeamsNames.homeTeam
+      WHERE gamesWithAwayTeamsNames.date = "${query.date}" AND 
+      gamesWithAwayTeamsNames.homeTeam = ${query.teamID} OR 
+      gamesWithAwayTeamsNames.awayTeam = ${query.teamID};`);
   } catch (error) {
     console.log(error);
+    throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function insertGame(homeTeam, awayTeam, date) {
+  const db = await connect();
   try {
-    const db = await connect();
+    console.log(homeTeam, awayTeam, date, "DATE TYPE OF", typeof date);
     // console.log("Connected to nbaDB to insert a Game");
     return await db.run(`
       INSERT INTO Games (homeTeam, awayTeam, date)
@@ -120,12 +148,14 @@ async function insertGame(homeTeam, awayTeam, date) {
   } catch (error) {
     console.log(error);
     throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function updateGameResult(gameID, winTeam, loseTeam) {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB update a Game");
     return await db.run(`
       UPDATE Games
@@ -134,12 +164,14 @@ async function updateGameResult(gameID, winTeam, loseTeam) {
   } catch (error) {
     console.log(error);
     throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function deleteGame(gameID) {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB to delete a Game");
     return await db.run(`
       DELETE FROM Games
@@ -147,12 +179,14 @@ async function deleteGame(gameID) {
   } catch (error) {
     console.log(error);
     throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function countWins(teamID) {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB to countWins");
     const wins = await db.get(`
       SELECT COUNT(gameID) AS teamWins
@@ -163,12 +197,14 @@ async function countWins(teamID) {
   } catch (error) {
     console.log(error);
     throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 
 async function countLosses(teamID) {
+  const db = await connect();
   try {
-    const db = await connect();
     // console.log("Connected to nbaDB to countLosses");
     const losses = await db.get(`
       SELECT COUNT(gameID) AS teamLosses
@@ -179,6 +215,8 @@ async function countLosses(teamID) {
   } catch (error) {
     console.log(error);
     throw new Error(error);
+  } finally {
+    db.close();
   }
 }
 

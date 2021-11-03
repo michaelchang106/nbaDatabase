@@ -107,8 +107,8 @@ async function createNewEmployee(newEmployee) {
     const employeeID = newEmployeeID.employeeID;
     // console.log(newEmployeeID.employeeID);
 
-    let height = newEmployee.firstName;
-    let weight = newEmployee.lastName;
+    let height = newEmployee.height;
+    let weight = newEmployee.weight;
     let jerseyNum = newEmployee.jerseyNum;
 
     const stmt2 = `INSERT INTO 

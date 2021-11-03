@@ -32,21 +32,21 @@ router.post("/deleteEmployee", async (req, res) => {
   const playerToDelete = req.body;
   await myDB.deletePlayer(playerToDelete);
   console.log("Player deleted.");
-  res.redirect(`/team/${playerToDelete.team}`);
+  res.redirect(`/employees/team/${playerToDelete.team}`);
 });
 
 router.post("/submitEdit", async (req, res) => {
   const player = req.body;
   console.log("Submitting for edit", player);
   await myDB.editPlayer(player);
-  res.redirect(`/team/${player.team}`);
+  res.redirect(`/employees/team/${player.team}`);
 });
 
 router.post("/player/create", async (req, res) => {
   const newPlayer = req.body;
   console.log("creating new player----->", newPlayer);
   await myDB.createNewEmployee(newPlayer);
-  res.redirect(`/team/${newPlayer.team}`);
+  res.redirect(`/employees/team/${newPlayer.team}`);
 });
 
 module.exports = router;

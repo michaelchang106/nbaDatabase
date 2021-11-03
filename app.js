@@ -1,11 +1,10 @@
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+let createError = require("http-errors");
+let express = require("express");
+let path = require("path");
+let cookieParser = require("cookie-parser");
+let logger = require("morgan");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const gamesRouter = require("./routes/games");
 const editGameRouter = require("./routes/editGame");
 const employeesRouter = require("./routes/employees");
@@ -24,10 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/employees", employeesRouter);
 app.use("/games", gamesRouter);
 app.use("/editGame", editGameRouter);
+app.use("/employees", employeesRouter);
 // app.use("/trade", tradeRouter);
 
 // catch 404 and forward to error handler

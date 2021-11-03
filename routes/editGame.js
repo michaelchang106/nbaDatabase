@@ -39,7 +39,10 @@ router.post("/", async function (req, res, next) {
     }
   } catch (error) {
     console.log("CAUGHT AN ERORR TRYING TO UPDATE");
-    res.render("error", { error: error, message: "There was an error, please fix and try again" });
+    res.render("error", {
+      error: error,
+      message: "There was an error, please fix and try again",
+    });
   }
 });
 
@@ -56,7 +59,10 @@ router.post("/editGameUpdate", async function (req, res, next) {
     res.status("200").redirect("/games");
   } catch (error) {
     console.log("CAUGHT AN ERORR TRYING TO UPDATE");
-    res.render("error", { error: error, message: "There was an error, please fix and try again" });
+    res.render("error", {
+      error: error,
+      message: "There was an error, please fix and try again",
+    });
   }
 });
 

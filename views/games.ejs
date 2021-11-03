@@ -13,15 +13,18 @@
     <title>NBA Games</title>
   </head>
   <body>
+    <div class="div m-2">
+      <a href="/">Go Back Home</a>
+    </div>
 
     <!-- filter by game by Team or Date -->
     <div class="row m-3 box border border-dark">
       <h2>FILTER BY GAME</h2>
       <div class="col">
-        <form action="/games/filterByTeamAndDate" method="post">
+        <form action="/games/filterBy" method="post">
           <label for="teamID">Choose a Team:</label>
           <select name="teamID" id="teamID">
-            <option value="" selected>Please choose a team</option>
+            <option value="" selected>Please choose a team (Optional)</option>
             <% teams.forEach((team) => { %>
             <option value="<%=team.teamID%>">
               <%=team.abbreviation%> - <%=team.name%>
@@ -30,19 +33,17 @@
           </select>
           <label for="date">Choose a Date:</label>
           <select name="date" id="date">
-            <option value="" selected>Please choose a date</option>
-            <% let gameDateSet = new Set()%>
-            <% games.forEach((game) => { 
-              if (!gameDateSet.has(game.date)) {%>
-            <option value="<%=game.date%>">
-              <%=game.date%>
-            </option>
+            <option value="" selected>Please choose a date (Optional)</option>
+            <% let gameDateSet = new Set()%> <% games.forEach((game) => { if
+            (!gameDateSet.has(game.date)) {%>
+            <option value="<%=game.date%>"><%=game.date%></option>
             <% gameDateSet.add(game.date)}}) %>
           </select>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
+
     <!-- create a new Game -->
     <div class="row m-3 box border border-dark">
       <h2>ADD A GAME</h2>
@@ -68,10 +69,12 @@
           <label for="date">Date of game:</label>
           <input
             name="date"
-            type="date"
+            type="text"
+            placeholder="mm/dd/yyyy"
             id="date"
             min="10-19-2021"
             max="06-30-2022"
+            required
           />
           <button type="submit" class="btn btn-primary">Add</button>
         </form>
@@ -104,7 +107,7 @@
 
             <% if (game.winTeam === game.homeTeam) { %>
             <h6 class="card-subtitle text-success">
-              | Winner - <%= game.abbreviation%> |
+              | Winner - <%= game.homeAbbreviation%> |
             </h6>
             <% } else if (game.winTeam === game.awayTeam) { %>
             <h6 class="card-subtitle text-success">
@@ -135,7 +138,12 @@
                     type="hidden"
                     value="<%=game.awayTeam%>"
                   />
-                  <input name="date" placehodler="mm-dd-yyyy" type="hidden" value="<%=game.date%>" />
+                  <input
+                    name="date"
+                    placehodler="mm-dd-yyyy"
+                    type="hidden"
+                    value="<%=game.date%>"
+                  />
                   <button type="submit" class="btn btn-secondary btn-sm mt-2">
                     Edit
                   </button>
@@ -154,9 +162,6 @@
         </div>
       </div>
       <% }) %>
-    </div>
-    <div class="div m-2">
-      <a href="/">Go Back Home</a>
     </div>
 
     <script
