@@ -6,7 +6,7 @@ const myDB = require("../database/mySQLiteDB.js");
 router.get("/", async function (req, res) {
   const teams = await myDB.getTeams();
   console.log("Team", teams);
-  res.render("index", { teams: teams });
+  res.render("employees", { teams: teams });
 });
 
 router.get("/team/:name", async (req, res) => {
@@ -15,7 +15,7 @@ router.get("/team/:name", async (req, res) => {
 
   const players = await myDB.getTeamPlayers(team);
 
-  // console.log(players);
+  console.log(players);
 
   const coach = await myDB.getCoach(team);
 
@@ -42,10 +42,11 @@ router.post("/submitEdit", async (req, res) => {
   res.redirect(`/team/${player.team}`);
 });
 
-router.post("/player/create", (req, res) => {
-  const player = req.body;
-  console.log(req.body);
-  res.redirect(`/team/${player.team}`);
-
-  myDB.createNewEmployee(player);
+router.post("/player/create", async (req, res) => {
+  const newPlayer = req.body;
+  console.log("creating new player----->", newPlayer);
+  await myDB.createNewEmployee(newPlayer);
+  res.redirect(`/team/${newPlayer.team}`);
 });
+
+module.exports = router;

@@ -83,32 +83,53 @@ async function deletePlayer(player) {
 async function createNewEmployee(newEmployee) {
   try {
     const db = await connect();
-    console.log("Createing New Employee", newEmployee);
+    console.log("createNewEmployee --->", newEmployee);
     const teamIDObj = await getTeamID(newEmployee.team);
+    const teamID = teamIDObj.teamID;
 
-    const insertEmployeeInfo = `INSERT INTO Employees (firstName, lastName, birthDate, teamID, employeeTypeID)
-    VALUES("${newEmployee.firstName}", "${newEmployee.lastName}", "${
-      newEmployee.birthDate
-    }", ${teamIDObj.teamID}, ${1})`;
+    let firstName = newEmployee.firstName;
+    let lastName = newEmployee.lastName;
+    let birthDate = newEmployee.birthDate;
 
-    await db.run(insertEmployeeInfo);
+    // Created a stmt for Employee Table
+    const stmt1 = `INSERT INTO 
+      Employees (firstName, lastName, birthDate, teamID, employeeTypeID) 
+      VALUES("${firstName}", "${lastName}","${birthDate}", ${teamID},${1})`;
 
-    //Update Attributes
+    console.log("<------ Added data to Employees Table -------->");
+    await db.run(stmt1);
 
-    const employeeObj = await db.get(
-      "SELECT * FROM Employees ORDER BY employeeID DESC LIMIT 1;"
-    ); //Get the last value
+    // Will insert into Players table
+    const newEmployeeID = await db.get(
+      "SELECT employeeID FROM Employees ORDER BY employeeID DESC LIMIT 1;"
+    ); //Grabs newly made EmployeeID
 
-    const employeeID = employeeObj.employeeID;
+    const employeeID = newEmployeeID.employeeID;
+    // console.log(newEmployeeID.employeeID);
 
-    console.log("---->", employeeID);
+    let height = newEmployee.firstName;
+    let weight = newEmployee.lastName;
+    let jerseyNum = newEmployee.jerseyNum;
 
-    const insertAttr = `INSERT INTO Employees (height, weight, jerseyNum, employeeID) 
-    VALUES(${newEmployee.height}, ${newEmployee.weight}, ${
-      newEmployee.jerseyNum
-    }, ${Number(employeeID)})`;
-    await db.run(insertAttr);
-    return;
+    const stmt2 = `INSERT INTO 
+      Players (height, weight, jerseyNum, employeeID) 
+      VALUES("${height}", "${weight}","${jerseyNum}", ${employeeID})`;
+    console.log("<------ Added data to Players Table -------->");
+    await db.run(stmt2);
+
+    const newPlayerID = await db.get(
+      "SELECT playerID FROM Players ORDER BY playerID DESC LIMIT 1;"
+    ); //Grabs newly made EmployeeID
+    console.log("------------------>", newEmployee.positionID);
+
+    const stmt3 = `INSERT INTO 
+      Players_Positions (playerID, positionID) 
+      VALUES("${newPlayerID.playerID}", "${newEmployee.positionID}")`;
+
+    await db.run(stmt3);
+    console.log("<------ Added data to Position to Table -------->");
+
+    console.log(stmt3);
   } catch (error) {
     console.log(error);
   }
@@ -127,7 +148,8 @@ async function editPlayer(player) {
 
     const employeeID = Number(player.employeeID);
 
-    // });
+    const query1 = `UPDATE Employees SET firstName = "${player.firstName}", lastName = "${player.lastName}" WHERE employeeID = ${employeeID}`;
+    const query2 = `UPDATE Players SET weight = ${player.weight}, jerseyNum = ${player.jerseyNum} WHERE employeeID = ${employeeID}`;
     await db.run(query1);
     await db.run(query2);
 

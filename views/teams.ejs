@@ -46,6 +46,8 @@
                   <p><strong>Jersey Number:</strong> <%= f. jerseyNum%></p>
                   <p><strong>Position:</strong> <%= f.positionDesc %></p>
                 </div>
+
+                <!-- To delete a Player -->
                 <div class="row">
                   <div class="d-flex justify-content-end col-6">
                     <form action="/deleteEmployee" method="POST">
@@ -64,14 +66,12 @@
                         Delete
                       </button>
                     </form>
-                    <!--                     <a href="/deleteEmployee" class="btn btn-primary"
-                      >Delete Player</a
-                    > -->
                   </div>
+
                   <!-- Edit Player -->
                   <div class="d-flex justify-content-start col-6">
                     <form action="/edit" method="POST">
-                      <input type="hidden" name="team" value="<%= f.name%>" />
+                      <input type="hidden" name="team" value="<%= team%>" />
                       <input
                         type="hidden"
                         name="employeeID"
@@ -101,7 +101,6 @@
                         Edit Player
                       </button>
                     </form>
-                    <!-- <a href="/edit" class="btn btn-primary">Edit Player</a> -->
                   </div>
                 </div>
               </div>
@@ -122,7 +121,7 @@
                   <h4>Coach</h4>
                 </div>
                 <!--Edit-->
-                <!--                 <div class="row">
+                <div class="row">
                   <div class="d-flex justify-content-end col-6">
                     <a href="/deleteEmployee" class="btn btn-primary"
                       >Delete Coach</a
@@ -133,18 +132,19 @@
                       >Edit Coach</a
                     >
                   </div>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>
           <% })%>
         </div>
 
-        <!-- Create a new player -->
+        <!-- Creating a Player -->
         <div class="col-md-3">
-          <h4>Add a Player</h4>
+          <h5>Add a New Player to the <%= team %></h5>
           <form action="/player/create" method="POST">
             <input type="hidden" name="team" value="<%=team%>" />
+            <!-- Use this to get teamID-->
             <div>
               <label class="form-label"
                 >First Name:
@@ -176,9 +176,20 @@
                   value="10/28/2001"
               /></label>
             </div>
+            <!-- This is for adding to the players table -->
             <div>
               <label class="form-label"
-                >Height:
+                >Weight (lbs):
+                <input
+                  required="true"
+                  name="weight"
+                  type="number"
+                  class="form-control"
+              /></label>
+            </div>
+            <div>
+              <label class="form-label"
+                >Height (inches):
                 <input
                   required="true"
                   name="height"
@@ -188,16 +199,6 @@
             </div>
             <div>
               <label class="form-label"
-                >Weight:
-                <input
-                  required="true"
-                  name="weight"
-                  type="number"
-                  class="form-control"
-              /></label>
-            </div>
-               <div>
-              <label class="form-label"
                 >Jersey Number:
                 <input
                   required="true"
@@ -206,15 +207,16 @@
                   class="form-control"
               /></label>
             </div>
-            <!-- <div>
+            <div>
               <label class="form-label"
                 >Choose One:
-                <select name="employeeSelect">
-                  <option value="Player">Player</option>
-                  <option value="Coach">Coach</option>
+                <select name="positionID">
+                  <option value="1">Guard</option>
+                  <option value="2">Forward</option>
+                  <option value="3">Center</option>
                 </select></label
               >
-            </div> -->
+            </div>
 
             <button type="submit" class="btn btn-primary">Create</button>
           </form>
