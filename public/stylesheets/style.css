@@ -1,8 +1,14 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: white;
+  background-image: url("../images/nba.jpg");
 }
 
 a {
   color: #00b7ff;
+}
+
+a:hover {
+  background-color: lightblue;
 }

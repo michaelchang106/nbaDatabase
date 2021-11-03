@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const nbaDB = require("../database/nbaSQLiteDB.js");
 
+// helper functions
 async function calculateWinsAndLosses(teams) {
   let teamsWinsAndLosses = {};
 
@@ -21,14 +22,28 @@ async function calculateWinsAndLosses(teams) {
   return teamsWinsAndLosses;
 }
 
+// helper functions
+async function getAllDates() {
+  const allGames = await nbaDB.getGames();
+  let allDates = new Set();
+
+  //loop thru each team and calcuate wins and losses
+  allGames.forEach((game) => {
+    if (!allDates.has(game.date)) {
+      allDates.add(game.date);
+    }
+  });
+  return Array.from(allDates);
+}
+
 /* GET /games page. */
 router.get("/", async function (req, res) {
   console.log("Got request for /games");
   const games = await nbaDB.getGames();
   const teams = await nbaDB.getTeams();
   const teamsWinsAndLosses = await calculateWinsAndLosses(teams);
-  console.log(teamsWinsAndLosses);
 
+  const allDates = await getAllDates();
   console.log("Got Games");
   try {
     console.log("TRYING TO RENDER");
@@ -36,6 +51,7 @@ router.get("/", async function (req, res) {
       games: games,
       teams: teams,
       teamsWinsAndLosses: teamsWinsAndLosses,
+      allDates: allDates,
     });
   } catch (error) {
     console.log("CAUGHT AN ERORR TRYING TO RENDER");
@@ -54,14 +70,14 @@ router.post("/insertGame", async function (req, res) {
   let date = req.body.date;
 
   date = date.replace(/^0+/, "");
-  console.log(date, "DATE TYPE:", typeof date);
+
   try {
     await nbaDB.insertGame(homeTeam, awayTeam, date);
     console.log(
       "Inserted game with home team:",
       homeTeam,
       "and away team:",
-      awayTeam
+      awayTeam, "on", date,
     );
     res.status("200").redirect("/games");
   } catch (error) {
@@ -119,6 +135,7 @@ router.post("/filterBy", async function (req, res) {
     games = await nbaDB.filterGamesByTeamAndDate(query);
   }
 
+  const allDates = await getAllDates();
   const teams = await nbaDB.getTeams();
   const teamsWinsAndLosses = await calculateWinsAndLosses(teams);
 
@@ -129,8 +146,7 @@ router.post("/filterBy", async function (req, res) {
       games: games,
       teams: teams,
       teamsWinsAndLosses: teamsWinsAndLosses,
-      teamID: teamID,
-      date: date,
+      allDates: allDates,
     });
   } catch (error) {
     console.log("CAUGHT AN ERORR TRYING TO RENDER");

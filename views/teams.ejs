@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bootstrap Example</title>
+    <title>Teams</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./images/basketball.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,12 +18,22 @@
   </head>
   <body>
     <div class="container">
+      <nav class="navbar navbar-light bg-light justify-content-start">
+        <a class="navbar-brand border p-2 bg-primary text-light" href="/"
+          >Home</a
+        >
+        <a class="navbar-brand border p-2 bg-primary text-light" href="/games"
+          >Games CRUD (Michael Chang)</a
+        >
+        <a
+          class="navbar-brand border p-2 bg-primary text-light"
+          href="/employees"
+          >Players CRUD (Daniel Lisko)</a
+        >
+      </nav>
       <div class="row">
         <div class="col-3">
           <h1><%= team %></h1>
-        </div>
-        <div class="col-6 pt-3 d-flex justify-content-end">
-          <a href="/">Go To Homepage</a>
         </div>
       </div>
 

@@ -56,9 +56,9 @@ SQL creation scripts to be ran in SQLite3
 
 ### Both team members collaborated and contributed evenly on the design and implementation of the database with SQLite, LucidChart, and Google Suite
 
-### [Michael Chang](https://github.com/michaelchang106) created the CRUD Operations and interface for Games and Trades tables
+### [Michael Chang](https://github.com/michaelchang106) created the CRUD Operations and interface for Games table
 
-### [Daniel Lisko](https://github.com/djlisko01) created the CRUD Operations and interface for Employees -> (Players and Coaches) tables
+### [Daniel Lisko](https://github.com/djlisko01) created the CRUD Operations and interface for Employees -> Players table (and inherently Employees)
 
 ## Execution of project
 

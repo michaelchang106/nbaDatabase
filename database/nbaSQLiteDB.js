@@ -140,11 +140,10 @@ async function filterGamesByTeamAndDate(query) {
 async function insertGame(homeTeam, awayTeam, date) {
   const db = await connect();
   try {
-    console.log(homeTeam, awayTeam, date, "DATE TYPE OF", typeof date);
     // console.log("Connected to nbaDB to insert a Game");
     return await db.run(`
       INSERT INTO Games (homeTeam, awayTeam, date)
-      VALUES (${homeTeam}, ${awayTeam}, ${date})`);
+      VALUES (${homeTeam}, ${awayTeam}, "${date}")`);
   } catch (error) {
     console.log(error);
     throw new Error(error);
