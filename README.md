@@ -1,7 +1,6 @@
 # nbaDatabase - Authors [Daniel Lisko](https://github.com/djlisko01) and [Michael Chang](https://github.com/michaelchang106)
 NBA database for DBMS Project 1 - CS 5200
 
-
 ## Business Requirements and Logical/Conceptual Models
 [Business Requirements PDF](./models_and_bus_reqs/Business_Requirements_and_Models_and_BCNF.pdf)
 
@@ -42,3 +41,17 @@ SQL creation scripts to be ran in SQLite3
 [Screenshots pasted into xlsx file](./database/Constraint_Screen_Shots.xlsx)
 
 [Screenshots pasted into Google Sheets](https://docs.google.com/spreadsheets/d/1euBu5pVi-Z4aii9Y-7CNDByd4slmUOYCvw8Q6XpOylI/edit?usp=sharing)
+
+## Division of works and tasks
+### Both team members collaborated and contributed evenly on the design and implementation of the database with SQLite, LucidChart, and Google Suite
+### [Michael Chang](https://github.com/michaelchang106) created the CRUD Operations and interface for Games and Trades tables
+### [Daniel Lisko](https://github.com/djlisko01) created the CRUD Operations and interface for Employees -> (Players and Coaches) tables
+
+
+## Execution of project
+* Download the code to your preferred directory
+* Open that directory with your preferred terminal
+* type "npm install" and hit enter
+* type "npm start" and hit enter
+* navigate to "http://localhost:3000/" in your preferred browser
+* use our developed interface to perform CRUD operations on the Employees -> Players & Coaches, Games, and Trades Tables
