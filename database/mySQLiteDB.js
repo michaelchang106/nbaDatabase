@@ -11,8 +11,8 @@ async function connect() {
 }
 
 async function getTeamPlayers(team) {
+  const db = await connect();
   try {
-    const db = await connect();
     const query = `WITH playersFullDetails AS (
       SELECT *
       FROM Players
@@ -38,51 +38,58 @@ async function getTeamPlayers(team) {
     return await db.all(query);
   } catch (error) {
     console.log(error);
+  } finally {
+    await db.close();
   }
 }
 
 async function getTeams() {
+  const db = await connect();
   try {
     const query = "SELECT * FROM Teams";
-    const db = await connect();
     return await db.all(query);
   } catch (error) {
     console.log(error);
+  } finally {
+    await db.close();
   }
 }
 
 async function getCoach(team) {
+  const db = await connect();
+
   try {
     const query = `SELECT  * FROM Employees JOIN 
                 Teams ON  Teams.teamID = Employees.teamID WHERE 
                 name = "${team}" AND employeeTypeID = 2;`;
-
-    const db = await connect();
     return await db.all(query);
   } catch (error) {
     console.log(error);
+  } finally {
+    await db.close();
   }
 }
 
 async function deletePlayer(player) {
   const db = await connect();
+  try {
+    console.log("player to delete:", player);
 
-  console.log("player to delete:", player);
+    const query = `DELETE FROM Players_Positions WHERE playerID = ${player.playerID};
+    // DELETE FROM Players WHERE playerID = ${player.playerID};
+    // DELETE FROM Employees WHERE employeeID = ${player.employeeID};`;
 
-  const stmt = await db.prepare(
-    `DELETE FROM Players_Positions WHERE playerID = :playerID;
-    DELETE FROM Players WHERE playerID = :playerID;
-    DELETE FROM Employees WHERE employeeID = :employeeID;`
-  );
-
-  stmt.bind({ ":playerID": player.playerID, ":employeeID": ":employeeID" });
-
-  return await stmt.run();
+    return await db.run(query);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await db.close();
+  }
 }
 
 async function createNewEmployee(newEmployee) {
+  const db = await connect();
   try {
-    const db = await connect();
     console.log("createNewEmployee --->", newEmployee);
     const teamIDObj = await getTeamID(newEmployee.team);
     const teamID = teamIDObj.teamID;
@@ -132,18 +139,26 @@ async function createNewEmployee(newEmployee) {
     console.log(stmt3);
   } catch (error) {
     console.log(error);
+  } finally {
+    await db.close();
   }
 }
 
 async function getTeamID(teamName) {
   const db = await connect();
-  const query = `SELECT teamID FROM Teams WHERE name = "${teamName}"`;
-  return db.get(query);
+  try {
+    const query = `SELECT teamID FROM Teams WHERE name = "${teamName}"`;
+    return db.get(query);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await db.close();
+  }
 }
 
 async function editPlayer(player) {
+  const db = await connect();
   try {
-    const db = await connect();
     console.log("Editing: ", player);
 
     const employeeID = Number(player.employeeID);
@@ -156,6 +171,8 @@ async function editPlayer(player) {
     return;
   } catch (error) {
     console.log(error);
+  } finally {
+    await db.close();
   }
 }
 module.exports.getTeamPlayers = getTeamPlayers;
