@@ -1,6 +1,9 @@
 {
   "name": "nbadatabase",
-  "authors": ["Michael Chang", "Daniel Lisko"],
+  "authors": [
+    "Michael Chang",
+    "Daniel Lisko"
+  ],
   "version": "0.0.0",
   "private": true,
   "liscense": "MIT",
