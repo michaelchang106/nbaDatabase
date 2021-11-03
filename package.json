@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+<<<<<<< HEAD
     "start": "./node_modules/nodemon/bin/nodemon.js ./bin/www"
+=======
+    "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www"
+>>>>>>> 72c9b456d9e87c6ead814e839b636f5b54244d16
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,11 +16,21 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+<<<<<<< HEAD
     "paginate": "^0.2.0",
+=======
+    "nodemon": "^2.0.14",
+>>>>>>> 72c9b456d9e87c6ead814e839b636f5b54244d16
     "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "nodemon": "^2.0.14"
+=======
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.4.1"
+>>>>>>> 72c9b456d9e87c6ead814e839b636f5b54244d16
   }
 }
