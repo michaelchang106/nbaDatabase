@@ -101,21 +101,36 @@
               CURRENT GAMES (<span class="text-primary">Home </span> VS
               <span class="text-danger">AWAY</span>)
             </h2>
+            <a href="/games">Refresh Games</a>
           </div>
           <% games.forEach((game) => { %>
-          <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="col-sm-6 col-md-4">
             <div class="card m-1">
               <div class="card-body">
                 <h6 class="card-title">
                   <%= game.date %>
                   <br />
                   <span class="text-primary"
-                    ><%= game.homeAbbreviation%> <%= game.homeName %>
+                    ><%= game.homeAbbreviation%> <%= game.homeName %> <% for
+                    (const [key, value] of
+                    Object.entries(teamsWinsAndLosses)){%> <%if (key ===
+                    game.homeAbbreviation) {%>
+                    <span class="text-dark"
+                      >(<%=value[0]%>W - <%=value[1]%>L)
+                    </span>
+                    <%}%> <%}%>
                   </span>
                   VS.
                   <span class="text-danger"
-                    ><%=game.awayAbbreviation%> <%= game.awayName%></span
-                  >
+                    ><%=game.awayAbbreviation%> <%= game.awayName%> <% for
+                    (const [key, value] of
+                    Object.entries(teamsWinsAndLosses)){%> <%if (key ===
+                    game.awayAbbreviation) {%>
+                    <span class="text-dark"
+                      >(<%=value[0]%>W - <%=value[1]%>L)
+                    </span>
+                    <%}%> <%}%>
+                  </span>
                 </h6>
 
                 <% if (game.winTeam === game.homeTeam) { %>

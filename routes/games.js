@@ -2,10 +2,9 @@ const express = require("express");
 const router = express.Router();
 const nbaDB = require("../database/nbaSQLiteDB.js");
 
+let teamsWinsAndLosses = {};
 // helper functions
 async function calculateWinsAndLosses(teams) {
-  let teamsWinsAndLosses = {};
-
   //loop thru each team and calcuate wins and losses
   await teams.forEach(async (team) => {
     let teamAbbrv = team.abbreviation;
@@ -15,10 +14,8 @@ async function calculateWinsAndLosses(teams) {
     let losses = await nbaDB.countLosses(teamID);
 
     teamsWinsAndLosses[teamAbbrv] = [wins.teamWins, losses.teamLosses];
-    console.log(teamsWinsAndLosses, "--------------INSIDE CALL BACK");
   });
-  // WHY IS THIS NOT KEEPING THE DATA INSERTED BY THE FOREACH CALLBACK?!?!?!?!
-  console.log(teamsWinsAndLosses, "--------------OUTSIDE CALL BACK");
+
   return teamsWinsAndLosses;
 }
 
@@ -41,7 +38,7 @@ router.get("/", async function (req, res) {
   console.log("Got request for /games");
   const games = await nbaDB.getGames();
   const teams = await nbaDB.getTeams();
-  const teamsWinsAndLosses = await calculateWinsAndLosses(teams);
+  teamsWinsAndLosses = await calculateWinsAndLosses(teams);
 
   const allDates = await getAllDates();
   console.log("Got Games");
@@ -77,7 +74,9 @@ router.post("/insertGame", async function (req, res) {
       "Inserted game with home team:",
       homeTeam,
       "and away team:",
-      awayTeam, "on", date,
+      awayTeam,
+      "on",
+      date
     );
     res.status("200").redirect("/games");
   } catch (error) {
@@ -137,7 +136,7 @@ router.post("/filterBy", async function (req, res) {
 
   const allDates = await getAllDates();
   const teams = await nbaDB.getTeams();
-  const teamsWinsAndLosses = await calculateWinsAndLosses(teams);
+  teamsWinsAndLosses = await calculateWinsAndLosses(teams);
 
   console.log("Got Games filterBy");
   try {

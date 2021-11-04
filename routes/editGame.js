@@ -3,7 +3,7 @@ const router = express.Router();
 const nbaDB = require("../database/nbaSQLiteDB.js");
 
 /* POST home page. */
-router.post("/", async function (req, res, next) {
+router.post("/", async function (req, res) {
   console.log("Got request for /editGame");
   const gameID = req.body.gameID;
   const homeTeam = req.body.homeTeam;
@@ -47,7 +47,7 @@ router.post("/", async function (req, res, next) {
 });
 
 /* POST editGameUpdate page. */
-router.post("/editGameUpdate", async function (req, res, next) {
+router.post("/editGameUpdate", async function (req, res) {
   console.log("Got request for /editGameUpdate");
   const gameID = req.body.gameID;
   const winTeam = req.body.winTeam;
